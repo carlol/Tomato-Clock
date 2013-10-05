@@ -1,0 +1,13 @@
+NB: remember to install coffee-script on OS...
+
+alt+shift+t - Run a Cake task
+alt+shift+r - Run some CoffeeScript (puts/print is available for output)
+alt+shift+s - Run a syntax check
+alt+shift+c - Compile a file
+alt+shift+d - Display compiled JavaScript
+alt+shift+l - Display lexer tokens
+alt+shift+n - Display parser nodes
+alt+shift+w - Toggle watch mode
+alt+shift+p - Toggle output panel
+
+bg = chrome.extension.getBackgroundPage()
