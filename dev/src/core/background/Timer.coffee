@@ -8,10 +8,13 @@
 define ['R', 'MessageEmitter'] , (R, MessageEmitter) ->
 
 	T = null # timer ctrl
+	counter = 0 # n tick executed
 
 	changeIcon = (n) -> # private utility
+		#console.log n
+		#console.log n isnt undefined
 		chrome.browserAction.setIcon
-	        path: R.path.icon + n + ".jpg"
+	        path: R.path.icon + n + ".jpg" # set defaul icon
 
 	Timer = # public methods
 
@@ -21,10 +24,12 @@ define ['R', 'MessageEmitter'] , (R, MessageEmitter) ->
 			    Timer[request.type]? (request)
 
 		start : (req) ->
+			if  T?
+				return off #EXIT
+
 			console.log R.string.start_timer_msg
 
 			n = 10
-			counter = 0
 			tick = req.time / n
 
 			# init timer ctrl
@@ -34,8 +39,7 @@ define ['R', 'MessageEmitter'] , (R, MessageEmitter) ->
 
 			task = () ->
 				if ( counter >= 10 ) 
-					window.clearInterval T
-					console.log R.string.stop_timer_msg
+					Timer.stop()
 					return; # exit
 
 				#console.log counter
@@ -45,10 +49,21 @@ define ['R', 'MessageEmitter'] , (R, MessageEmitter) ->
 			return on; # NA
 
 
-		stop : (req) ->
-
+		pause : (req) ->
 			if  T?
 				window.clearInterval T
-				console.log R.string.stop_timer_msg
+				T = null
+				console.log R.string.pause_timer_msg
+
+
+		stop : (req) ->
+			if  T?
+				window.clearInterval T
+				T = null
+
+			counter = 0;
+			changeIcon() # set default icon
+			console.log R.string.stop_timer_msg
+			return on
 
 
