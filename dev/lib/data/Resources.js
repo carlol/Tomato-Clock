@@ -11,6 +11,9 @@
     int: {
       default_time: 5000
     },
+    path: {
+      icon: 'images/tomato-products-clock-'
+    },
     id: void 0,
     key: void 0
   });

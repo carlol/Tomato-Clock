@@ -7,13 +7,11 @@
 
 define ['R', 'MessageEmitter'] , (R, MessageEmitter) ->
 
-	iconPath = 'images/tomato-products-clock-' #TODO
-
 	T = null # timer ctrl
 
 	changeIcon = (n) -> # private utility
 		chrome.browserAction.setIcon
-	        path: iconPath + n + ".jpg"
+	        path: R.path.icon + n + ".jpg"
 
 	Timer = # public methods
 

@@ -12,6 +12,9 @@ define
 
 	int :
 		default_time : 5000#25*60*1000
+
+	path :
+		icon : 'images/tomato-products-clock-'
 	
 	id : undefined
 
