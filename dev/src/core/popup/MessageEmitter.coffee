@@ -3,16 +3,16 @@
 
 define ['R'] , (R) ->
 	
-	start : ->
+	start : (cb) ->
 		chrome.runtime.sendMessage 
 			"type" : R.string.start_timer 
 			"time" : R.int.default_time
-			, (res) -> console.log res
+			, (res) -> cb? cb(res)
 
-	pause : ->
-		chrome.runtime.sendMessage { "type" : R.string.pause_timer }, (res) -> 
-			console.log res
+	pause : (cb) ->
+		chrome.runtime.sendMessage { "type" : R.string.pause_timer }
+			, (res) -> cb? cb(res)
 
-	stop : ->
-		chrome.runtime.sendMessage { "type" : R.string.stop_timer }, (res) -> 
-			console.log res
+	stop : (cb) ->
+		chrome.runtime.sendMessage { "type" : R.string.stop_timer }
+			, (res) -> cb? cb(res)

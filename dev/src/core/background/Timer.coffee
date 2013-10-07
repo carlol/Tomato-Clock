@@ -3,33 +3,30 @@
 
 # @see http://www.w3schools.com/js/js_timing.asp
 
-# timer
+define ['R', 'MessageEmitter', '_'] , (R, MessageEmitter, _) ->
 
-define ['R', 'MessageEmitter'] , (R, MessageEmitter) ->
+	class Timer # public methods
 
-	T = null # timer ctrl
-	counter = 0 # n tick executed
+		T = null # timer ctrl
+		counter = 0 # n tick executed
+		n = 10
 
-	changeIcon = (n) -> # private utility
-		#console.log n
-		#console.log n isnt undefined
-		chrome.browserAction.setIcon
-	        path: R.path.icon + n + ".jpg" # set defaul icon
+		changeIcon = (n) -> # private utility
+			chrome.browserAction.setIcon
+		        path: if _.isDef(n) then R.path.icon + n + ".jpg" else R.path.default_icon
 
-	Timer = # public methods
+		# public methods
 
 		init : -> # initialization
+			self = @
 			chrome.runtime.onMessage.addListener (request, sender, sendResponse) ->
-			    #console.log request
-			    Timer[request.type]? (request)
+			    self[request.type]?(request, sender, sendResponse)
 
-		start : (req) ->
-			if  T?
-				return off #EXIT
+		start : (req, sender, sendResponse) ->
+			if  T? then	return off #EXIT
 
 			console.log R.string.start_timer_msg
-
-			n = 10
+			console.log req
 			tick = req.time / n
 
 			# init timer ctrl
@@ -38,25 +35,25 @@ define ['R', 'MessageEmitter'] , (R, MessageEmitter) ->
 			, tick
 
 			task = () ->
-				if ( counter >= 10 ) 
-					Timer.stop()
-					return; # exit
+				if ( counter >= n ) 
+					@stop()
+					#sendResponse()
+					return # exit
 
-				#console.log counter
 				changeIcon( counter )
-				counter++;
+				counter++
 
 			return on; # NA
 
 
-		pause : (req) ->
+		pause : (req, sender, sendResponse) ->
 			if  T?
 				window.clearInterval T
 				T = null
 				console.log R.string.pause_timer_msg
 
 
-		stop : (req) ->
+		stop : (req, sender, sendResponse) ->
 			if  T?
 				window.clearInterval T
 				T = null
@@ -66,4 +63,5 @@ define ['R', 'MessageEmitter'] , (R, MessageEmitter) ->
 			console.log R.string.stop_timer_msg
 			return on
 
+	new Timer()
 
