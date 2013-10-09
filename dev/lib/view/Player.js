@@ -20,10 +20,13 @@
         return $playBtn.removeClass('pause').addClass('play').children().removeClass('uk-icon-pause').addClass('uk-icon-play');
       }
     };
-    return $(document).ready(function() {
+    $(document).ready(function() {
       console.log('init player');
       $playBtn = $('.play').click(fnPlayPause);
       return $stopBtn = $('.stop').click(fnStop);
+    });
+    return MessageEmitter.bind(function(msg) {
+      return console.log(msg);
     });
   });
 

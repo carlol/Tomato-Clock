@@ -16,3 +16,8 @@ define ['R'] , (R) ->
 	stop : (cb) ->
 		chrome.runtime.sendMessage { "type" : R.string.stop_timer }
 			, (res) -> cb? cb(res)
+
+	bind : (cb) -> 
+		port = chrome.runtime.connect()
+		port.onMessage.addListener (msg) ->
+			cb msg

@@ -13,3 +13,21 @@ alt+shift+w - Toggle watch mode
 alt+shift+p - Toggle output panel
 
 bg = chrome.extension.getBackgroundPage()
+
+
+
+tostring millisec
+
+function secondsToString(seconds)
+{
+var numyears = Math.floor(seconds / 31536000);
+var numdays = Math.floor((seconds % 31536000) / 86400); 
+var numhours = Math.floor(((seconds % 31536000) % 86400) / 3600);
+var numminutes = Math.floor((((seconds % 31536000) % 86400) % 3600) / 60);
+var numseconds = (((seconds % 31536000) % 86400) % 3600) % 60;
+return numyears + " years " +  numdays + " days " + numhours + " hours " + numminutes + " minutes " + numseconds + " seconds";
+
+}
+
+NB: maybe clock in frontend (sendMessage can be fired only once)
+	or use runtime.connect (http://developer.chrome.com/extensions/messaging.html)

@@ -27,3 +27,5 @@ define ['R', 'MessageEmitter'] , (R, MessageEmitter) ->
 		$playBtn = $('.play').click( fnPlayPause )
 		$stopBtn = $('.stop').click( fnStop )
 	)
+
+	MessageEmitter.bind (msg) -> console.log msg

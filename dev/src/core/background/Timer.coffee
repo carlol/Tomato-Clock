@@ -10,6 +10,7 @@ define ['R', 'MessageEmitter', '_'] , (R, MessageEmitter, _) ->
 		T = null # timer ctrl
 		counter = 0 # n tick executed
 		n = 10
+		_target = null
 
 		changeIcon = (n) -> # private utility
 			chrome.browserAction.setIcon
@@ -22,6 +23,11 @@ define ['R', 'MessageEmitter', '_'] , (R, MessageEmitter, _) ->
 			chrome.runtime.onMessage.addListener (request, sender, sendResponse) ->
 			    self[request.type]?(request, sender, sendResponse)
 
+			chrome.runtime.onConnect.addListener (port) ->
+					_target = port
+					port.onDisconnect.addListener ->
+						_target = null
+					  
 		start : (req, sender, sendResponse) ->
 			if  T? then	return off #EXIT
 
@@ -35,13 +41,12 @@ define ['R', 'MessageEmitter', '_'] , (R, MessageEmitter, _) ->
 			, tick
 
 			task = () ->
-				if ( counter >= n ) 
+				if ( counter >= n )
 					@stop()
-					#sendResponse()
 					return # exit
-
 				changeIcon( counter )
 				counter++
+				if _target? then _target.postMessage( {s:counter} )
 
 			return on; # NA
 
@@ -62,6 +67,7 @@ define ['R', 'MessageEmitter', '_'] , (R, MessageEmitter, _) ->
 			changeIcon() # set default icon
 			console.log R.string.stop_timer_msg
 			return on
+
 
 	new Timer()
 

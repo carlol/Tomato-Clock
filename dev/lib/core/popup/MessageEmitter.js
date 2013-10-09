@@ -23,6 +23,13 @@
         }, function(res) {
           return typeof cb === "function" ? cb(cb(res)) : void 0;
         });
+      },
+      bind: function(cb) {
+        var port;
+        port = chrome.runtime.connect();
+        return port.onMessage.addListener(function(msg) {
+          return cb(msg);
+        });
       }
     };
   });

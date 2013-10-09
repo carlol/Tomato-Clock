@@ -3,7 +3,7 @@
   define(['R', 'MessageEmitter', '_'], function(R, MessageEmitter, _) {
     var Timer;
     Timer = (function() {
-      var T, changeIcon, counter, n;
+      var T, changeIcon, counter, n, _target;
 
       function Timer() {}
 
@@ -12,6 +12,8 @@
       counter = 0;
 
       n = 10;
+
+      _target = null;
 
       changeIcon = function(n) {
         return chrome.browserAction.setIcon({
@@ -22,9 +24,15 @@
       Timer.prototype.init = function() {
         var self;
         self = this;
-        return chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
+        chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
           var _name;
           return typeof self[_name = request.type] === "function" ? self[_name](request, sender, sendResponse) : void 0;
+        });
+        return chrome.runtime.onConnect.addListener(function(port) {
+          _target = port;
+          return port.onDisconnect.addListener(function() {
+            return _target = null;
+          });
         });
       };
 
@@ -45,7 +53,12 @@
             return;
           }
           changeIcon(counter);
-          return counter++;
+          counter++;
+          if (_target != null) {
+            return _target.postMessage({
+              s: counter
+            });
+          }
         };
         return true;
       };
