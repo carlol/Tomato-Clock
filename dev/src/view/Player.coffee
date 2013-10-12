@@ -3,7 +3,7 @@
 
 define ['R', 'Clock'] , (R, Clock) ->
 
-	port = chrome.runtime.connect()
+	_target = null
 	$playBtn = $stopBtn = null
 
 
@@ -23,18 +23,18 @@ define ['R', 'Clock'] , (R, Clock) ->
 
 	fnPlayPause = ->
 		if ( $playBtn.hasClass('play'))
-			chrome.runtime.sendMessage 
+			_target.postMessage
 				"type" : R.string.start_timer 
 				"time" : R.int.default_time
 			_play()
 				
 		else if ( $playBtn.hasClass('pause'))
-			chrome.runtime.sendMessage { "type" : R.string.pause_timer }
+			_target.postMessage { "type" : R.string.pause_timer }
 			_pause()
 			
 
 	fnStop = ->
-		chrome.runtime.sendMessage { "type" : R.string.stop_timer }
+		_target.postMessage { "type" : R.string.stop_timer }
 		_stop()
 	
 
@@ -42,9 +42,14 @@ define ['R', 'Clock'] , (R, Clock) ->
 
 	$(document).ready ->
 		console.log 'init player'
+		_target = chrome.runtime.connect()
 		$playBtn = $('.play').click( fnPlayPause )
 		$stopBtn = $('.stop').click( fnStop )
 
-	# routing (replace sendMessage with connection)
+		# routing (replace sendMessage with connection)
 
-	port.onMessage.addListener (msg) -> Clock.update msg.s # secs
+		_target.onMessage.addListener (req) ->
+			switch req.type
+				when R.key.resume_timer then Clock.update req.secs; _play()
+				when R.key.update_clock then Clock.update req.secs
+				when R.key.end_timer then _stop()
