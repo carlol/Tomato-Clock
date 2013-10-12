@@ -19,9 +19,8 @@ define ['R', 'MessageEmitter', '_'] , (R, MessageEmitter, _) ->
 		# public methods
 
 		init : -> # initialization
-			self = @
-			chrome.runtime.onMessage.addListener (request, sender, sendResponse) ->
-			    self[request.type]?(request, sender, sendResponse)
+			chrome.runtime.onMessage.addListener (request, sender, sendResponse) =>
+			    @[request.type]?(request, sender, sendResponse)
 
 			chrome.runtime.onConnect.addListener (port) ->
 					_target = port
@@ -33,18 +32,21 @@ define ['R', 'MessageEmitter', '_'] , (R, MessageEmitter, _) ->
 
 			console.log R.string.start_timer_msg
 			console.log req
-			tick = req.time / n
+			secs = req.time / 1000
+			tick = secs / n
 
 			# init timer ctrl
 			T = setInterval ->
 				task()
-			, tick
+			, 1000
 
-			task = () ->
-				if ( counter >= n )
+			task = () =>
+				if ( counter >= secs )
 					@stop()
+					# sendMess to popup to change.
 					return # exit
-				changeIcon( counter )
+
+				changeIcon( counter ) if counter >= tick
 				counter++
 				if _target? then _target.postMessage( {s:counter} )
 

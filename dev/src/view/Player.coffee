@@ -1,7 +1,7 @@
 
 # PLAYER MANAGER
 
-define ['R', 'MessageEmitter'] , (R, MessageEmitter) ->
+define ['R', 'MessageEmitter', 'Clock'] , (R, MessageEmitter, Clock) ->
 
 	$playBtn = $stopBtn = null
 
@@ -22,10 +22,9 @@ define ['R', 'MessageEmitter'] , (R, MessageEmitter) ->
 			$playBtn.removeClass('pause').addClass('play')
 				 .children().removeClass('uk-icon-pause').addClass('uk-icon-play')
 
-	$(document).ready( ->
+	$(document).ready ->
 		console.log 'init player'
 		$playBtn = $('.play').click( fnPlayPause )
 		$stopBtn = $('.stop').click( fnStop )
-	)
 
-	MessageEmitter.bind (msg) -> console.log msg
+	MessageEmitter.bind (msg) -> Clock.update msg.s # secs

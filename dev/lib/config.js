@@ -6,7 +6,8 @@
       Timer: 'core/background/Timer',
       MessageEmitter: 'core/popup/MessageEmitter',
       _: 'common/Utils',
-      Player: 'view/Player'
+      Player: 'view/Player',
+      Clock: 'view/Clock'
     }
   });
 

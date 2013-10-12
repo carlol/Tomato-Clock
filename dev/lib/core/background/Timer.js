@@ -22,11 +22,10 @@
       };
 
       Timer.prototype.init = function() {
-        var self;
-        self = this;
+        var _this = this;
         chrome.runtime.onMessage.addListener(function(request, sender, sendResponse) {
           var _name;
-          return typeof self[_name = request.type] === "function" ? self[_name](request, sender, sendResponse) : void 0;
+          return typeof _this[_name = request.type] === "function" ? _this[_name](request, sender, sendResponse) : void 0;
         });
         return chrome.runtime.onConnect.addListener(function(port) {
           _target = port;
@@ -37,22 +36,26 @@
       };
 
       Timer.prototype.start = function(req, sender, sendResponse) {
-        var task, tick;
+        var secs, task, tick,
+          _this = this;
         if (T != null) {
           return false;
         }
         console.log(R.string.start_timer_msg);
         console.log(req);
-        tick = req.time / n;
+        secs = req.time / 1000;
+        tick = secs / n;
         T = setInterval(function() {
           return task();
-        }, tick);
+        }, 1000);
         task = function() {
-          if (counter >= n) {
-            this.stop();
+          if (counter >= secs) {
+            _this.stop();
             return;
           }
-          changeIcon(counter);
+          if (counter >= tick) {
+            changeIcon(counter);
+          }
           counter++;
           if (_target != null) {
             return _target.postMessage({

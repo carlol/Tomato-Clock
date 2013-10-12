@@ -29,5 +29,12 @@ return numyears + " years " +  numdays + " days " + numhours + " hours " + nummi
 
 }
 
-NB: maybe clock in frontend (sendMessage can be fired only once)
-	or use runtime.connect (http://developer.chrome.com/extensions/messaging.html)
+# TODO
+1sec loop (2 events)
+
+
+# differend msg during connection
+
+- time // secs
+- started // if loop enabled (to change btn_ico)
+- stop // when loop end (to change btn_ico)

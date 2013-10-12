@@ -6,3 +6,4 @@ require.config
 		MessageEmitter: 'core/popup/MessageEmitter'
 		_ : 'common/Utils'
 		Player : 'view/Player'
+		Clock : 'view/Clock'
