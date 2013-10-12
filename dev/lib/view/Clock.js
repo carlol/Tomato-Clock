@@ -26,6 +26,11 @@
         if (!!$clock) {
           return $clock.text(toString(secs));
         }
+      },
+      reset: function() {
+        if (!!$clock) {
+          return $clock.text(toString(0));
+        }
       }
     };
   });

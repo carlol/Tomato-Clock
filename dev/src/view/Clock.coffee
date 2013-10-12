@@ -21,4 +21,5 @@ define [] , ->
 
 	update : (secs) -> $clock.text toString secs if !!$clock
 
+	reset : -> $clock.text toString 0 if !!$clock
 
