@@ -3,12 +3,10 @@
   define({
     string: {
       test: "this is a test!",
-      start_timer: "start",
       start_timer_msg: "::: timer start :::",
-      pause_timer: "pause",
       pause_timer_msg: "::: timer pause :::",
-      stop_timer: "stop",
-      stop_timer_msg: "::: timer stop :::"
+      stop_timer_msg: "::: timer stop :::",
+      incr_tag_msg: "::: increment complited :::"
     },
     int: {
       default_time: 5000
@@ -19,10 +17,14 @@
     },
     id: void 0,
     key: {
+      start_timer: "start",
+      pause_timer: "pause",
+      stop_timer: "stop",
       update_clock: "clock",
       end_timer: "end",
       resume_timer: "resume",
-      persistence_tag: "tag_io"
+      persistence_tag: "tag_io",
+      persistence_current_tag: "current_tag_io"
     }
   });
 

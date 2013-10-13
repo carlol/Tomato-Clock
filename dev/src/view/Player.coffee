@@ -24,17 +24,17 @@ define ['R', 'Clock'] , (R, Clock) ->
 	fnPlayPause = ->
 		if ( $playBtn.hasClass('play'))
 			_target.postMessage
-				"type" : R.string.start_timer 
+				"type" : R.key.start_timer 
 				"time" : R.int.default_time
 			_play()
 				
 		else if ( $playBtn.hasClass('pause'))
-			_target.postMessage { "type" : R.string.pause_timer }
+			_target.postMessage { "type" : R.key.pause_timer }
 			_pause()
 			
 
 	fnStop = ->
-		_target.postMessage { "type" : R.string.stop_timer }
+		_target.postMessage { "type" : R.key.stop_timer }
 		_stop()
 	
 
@@ -50,6 +50,6 @@ define ['R', 'Clock'] , (R, Clock) ->
 
 		_target.onMessage.addListener (req) ->
 			switch req.type
-				when R.key.resume_timer then Clock.update req.secs; _play()
+				when R.key.resume_timer then Clock.update req.secs; _play(); #dispatch event
 				when R.key.update_clock then Clock.update req.secs
 				when R.key.end_timer then _stop()

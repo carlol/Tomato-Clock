@@ -1,9 +1,11 @@
 require.config 
 
 	paths: 
-		R: 'core/data/Resources'
+		R : 'core/data/Resources'
 		_ : 'core/common/Utils'
-		Timer: 'background/Timer'
+		EventEmitter : 'core/common/EventEmitter'
+		TagIO : 'core/persistence/TagIO'
+		Timer : 'background/Timer'
 		Player : 'view/Player'
 		Clock : 'view/Clock'
-		TagIO : 'core/persistence/TagIO'
+		Tag : 'view/Tag'

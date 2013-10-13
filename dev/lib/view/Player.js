@@ -19,20 +19,20 @@
     fnPlayPause = function() {
       if ($playBtn.hasClass('play')) {
         _target.postMessage({
-          "type": R.string.start_timer,
+          "type": R.key.start_timer,
           "time": R.int.default_time
         });
         return _play();
       } else if ($playBtn.hasClass('pause')) {
         _target.postMessage({
-          "type": R.string.pause_timer
+          "type": R.key.pause_timer
         });
         return _pause();
       }
     };
     fnStop = function() {
       _target.postMessage({
-        "type": R.string.stop_timer
+        "type": R.key.stop_timer
       });
       return _stop();
     };

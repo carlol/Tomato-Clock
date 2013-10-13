@@ -15,20 +15,51 @@
         return _Class;
 
       })(),
-      saveAll: function(tagList, fn) {
+      saveAll: function(tagMap, fn) {
         var q;
         q = {};
-        q[R.key.persistence_tag] = JSON.stringify(tagList);
+        q[R.key.persistence_tag] = JSON.stringify(tagMap);
+        if (fn == null) {
+          fn = function() {};
+        }
         return chrome.storage.sync.set(q, fn);
       },
       loadAll: function(fn) {
         return chrome.storage.sync.get(R.key.persistence_tag, function(obj) {
-          var tagList;
-          if (obj[R.key.category] === void 0) {
+          var tagMap;
+          if (obj[R.key.persistence_current_tag] === void 0) {
             return;
           }
-          tagList = JSON.parse(obj[R.key.category]);
-          return typeof fn === "function" ? fn(tagList) : void 0;
+          tagMap = JSON.parse(obj[R.key.category]);
+          return typeof fn === "function" ? fn(tagMap) : void 0;
+        });
+      },
+      incr: function(name, fn) {
+        var _this = this;
+        return this.loadAll(function(tagMap) {
+          if (tagMap[name] != null) {
+            tagMap[name]++;
+          } else {
+            tagMap[name] = 1;
+          }
+          return _this.saveAll(tagMap, fn);
+        });
+      },
+      saveCurrent: function(name, fn) {
+        var q;
+        q = {};
+        q[R.key.persistence_current_tag] = name;
+        if (fn == null) {
+          fn = function() {};
+        }
+        return chrome.storage.sync.set(q, fn);
+      },
+      loadCurrent: function(fn) {
+        return chrome.storage.sync.get(R.key.persistence_current_tag, function(obj) {
+          if (obj[R.key.persistence_current_tag] != null) {
+            return;
+          }
+          return fn(obj[R.key.persistence_current_tag]);
         });
       }
     };
