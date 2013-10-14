@@ -3,16 +3,16 @@
   define([], function() {
     return {
       on: function(name, fn) {
-        return document.addEventListener(name, function(e) {
-          return typeof fn === "function" ? fn(e, false) : void 0;
-        });
+        return document.addEventListener(name, (function(e) {
+          return fn(e.detail);
+        }), false);
       },
       trigger: function(name, data) {
-        var event;
-        if (data != null) {
-          data = {};
-        }
-        event = new Event(name, data);
+        var detail, event;
+        detail = {
+          'detail': data
+        };
+        event = new CustomEvent(name, detail);
         return document.dispatchEvent(event);
       }
     };
