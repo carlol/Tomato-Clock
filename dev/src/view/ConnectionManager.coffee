@@ -10,8 +10,9 @@ define ['R', 'EventEmitter'], (R, EE) ->
 		
 		# routing (replace sendMessage with connection)
 		port.onMessage.addListener (req) ->
+			console.log req
 			switch req.type
-				when R.key.resume_timer then EE.trigger(R.key.resume_time, req)
+				when R.key.resume_timer then EE.trigger(R.key.resume_timer, req)
 				when R.key.update_clock then EE.trigger(R.key.update_clock, req)
 				when R.key.end_timer then EE.trigger(R.key.end_timer, req)
 

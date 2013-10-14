@@ -4,9 +4,8 @@
 define [], () ->
 
 	on : (name, fn) ->
-		document.addEventListener name, ((e) -> fn e.detail) , false
+		document.addEventListener name, ((e) -> fn e.detail), false
 
 	trigger : (name, data) ->
-		detail = {'detail' : data}
-		event = new CustomEvent name, detail
+		event = new CustomEvent name, { 'detail' : data }
 		document.dispatchEvent event

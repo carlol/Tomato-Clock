@@ -41,7 +41,8 @@
       $stopBtn = $('.stop').click(fnStop);
       EE.on(R.key.resume_timer, function(req) {
         Clock.update(req.secs);
-        return _play();
+        _play();
+        return console.log(req);
       });
       EE.on(R.key.update_clock, function(req) {
         return Clock.update(req.secs);

@@ -13,8 +13,9 @@ define ['R', '_'] , (R, _) ->
 		_target = null
 
 		changeIcon = (n) -> # private utility
+			console.log n
 			chrome.browserAction.setIcon
-		        path: if _.isDef(n) then R.path.icon + n + ".jpg" else R.path.default_icon
+		        path: if n? then R.path.icon + n + ".jpg" else R.path.default_icon
 
 		# public methods
 
@@ -26,10 +27,12 @@ define ['R', '_'] , (R, _) ->
 				_target = port
 
 				port.onMessage.addListener (req) ->
-					console.log req
 					self[req.type]?(req)
 
 				if T? # if task running
+					console.log #test
+						type : R.key.resume_timer
+						secs : counter
 					port.postMessage 
 						type : R.key.resume_timer
 						secs : counter
@@ -38,7 +41,7 @@ define ['R', '_'] , (R, _) ->
 					_target = null
 					  
 		start : (req) ->
-			if  T? then	return off #EXIT
+			return off if T? #EXIT
 
 			secs = req.time / 1000
 			tick = secs / n
@@ -51,7 +54,7 @@ define ['R', '_'] , (R, _) ->
 			task = () =>
 				if counter >= secs
 					@stop()
-					_target.postMessage { type : R.key.end_timer }
+					_target.postMessage { type : R.key.end_timer } if _target
 					return # exit
 
 				changeIcon( counter ) if counter >= tick

@@ -16,8 +16,9 @@
       _target = null;
 
       changeIcon = function(n) {
+        console.log(n);
         return chrome.browserAction.setIcon({
-          path: _.isDef(n) ? R.path.icon + n + ".jpg" : R.path.default_icon
+          path: n != null ? R.path.icon + n + ".jpg" : R.path.default_icon
         });
       };
 
@@ -28,10 +29,13 @@
           _target = port;
           port.onMessage.addListener(function(req) {
             var _name;
-            console.log(req);
             return typeof self[_name = req.type] === "function" ? self[_name](req) : void 0;
           });
           if (T != null) {
+            console.log({
+              type: R.key.resume_timer,
+              secs: counter
+            });
             port.postMessage({
               type: R.key.resume_timer,
               secs: counter
@@ -57,9 +61,11 @@
         task = function() {
           if (counter >= secs) {
             _this.stop();
-            _target.postMessage({
-              type: R.key.end_timer
-            });
+            if (_target) {
+              _target.postMessage({
+                type: R.key.end_timer
+              });
+            }
             return;
           }
           if (counter >= tick) {

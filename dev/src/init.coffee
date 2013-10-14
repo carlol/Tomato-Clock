@@ -1,4 +1,4 @@
 
 # INITIALIZATION SCRIPT
 
-require ['config'], -> require ['ConnectionManager', 'Player'], (CM, P) -> CM.init()
+require ['config'], -> require ['Player'], -> require ['ConnectionManager'], (CM) -> CM.init()

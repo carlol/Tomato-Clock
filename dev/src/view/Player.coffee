@@ -4,7 +4,7 @@
 define ['R', 'EventEmitter', 'ConnectionManager', 'Clock'] , (R, EE, CM, Clock) ->
 
 	$playBtn = $stopBtn = null
-
+	
 
 	_play = ->
 		$playBtn.removeClass('play').addClass('pause')
@@ -44,6 +44,6 @@ define ['R', 'EventEmitter', 'ConnectionManager', 'Clock'] , (R, EE, CM, Clock) 
 		$playBtn = $('.play').click( fnPlayPause )
 		$stopBtn = $('.stop').click( fnStop )
 
-		EE.on R.key.resume_timer, (req) -> Clock.update req.secs; _play()
+		EE.on R.key.resume_timer, (req) -> Clock.update req.secs; _play(); console.log req
 		EE.on R.key.update_clock, (req) -> Clock.update req.secs
 		EE.on R.key.end_timer, (req) -> _stop()

@@ -8,11 +8,10 @@
         }), false);
       },
       trigger: function(name, data) {
-        var detail, event;
-        detail = {
+        var event;
+        event = new CustomEvent(name, {
           'detail': data
-        };
-        event = new CustomEvent(name, detail);
+        });
         return document.dispatchEvent(event);
       }
     };

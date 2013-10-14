@@ -7,9 +7,10 @@
       init: function() {
         port = chrome.runtime.connect();
         return port.onMessage.addListener(function(req) {
+          console.log(req);
           switch (req.type) {
             case R.key.resume_timer:
-              return EE.trigger(R.key.resume_time, req);
+              return EE.trigger(R.key.resume_timer, req);
             case R.key.update_clock:
               return EE.trigger(R.key.update_clock, req);
             case R.key.end_timer:
