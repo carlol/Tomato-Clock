@@ -1,7 +1,7 @@
 
 # PLAYER MANAGER
 
-define ['R', 'EventEmitter', 'ConnectionManager', 'Clock'] , (R, EE, CM, Clock) ->
+define ['R', 'EventEmitter', 'ConnectionManager', 'Clock', 'Tag'] , (R, EE, CM, Clock, Tag) ->
 
 	$playBtn = $stopBtn = null
 	
@@ -25,7 +25,9 @@ define ['R', 'EventEmitter', 'ConnectionManager', 'Clock'] , (R, EE, CM, Clock) 
 			CM.send
 				"type" : R.key.start_timer 
 				"time" : R.int.default_time
+				"tag"  : Tag.getValue()
 			_play()
+			EE.trigger R.key.play_clock
 				
 		else if ( $playBtn.hasClass('pause'))
 			CM.send { "type" : R.key.pause_timer }
@@ -35,15 +37,13 @@ define ['R', 'EventEmitter', 'ConnectionManager', 'Clock'] , (R, EE, CM, Clock) 
 	fnStop = ->
 		CM.send { "type" : R.key.stop_timer }
 		_stop()
-	
+		EE.trigger R.key.stop_clock
 
-	# initialization
+	init : ->
+		$(document).ready ->
+			$playBtn = $('.play').click( fnPlayPause )
+			$stopBtn = $('.stop').click( fnStop )
 
-	$(document).ready ->
-		console.log 'init player'
-		$playBtn = $('.play').click( fnPlayPause )
-		$stopBtn = $('.stop').click( fnStop )
-
-		EE.on R.key.resume_timer, (req) -> Clock.update req.secs; _play(); console.log req
-		EE.on R.key.update_clock, (req) -> Clock.update req.secs
-		EE.on R.key.end_timer, (req) -> _stop()
+			EE.on R.key.resume_timer, (req) -> Clock.update req.secs; _play()
+			EE.on R.key.update_timer, (req) -> Clock.update req.secs
+			EE.on R.key.end_timer, (req) -> _stop()

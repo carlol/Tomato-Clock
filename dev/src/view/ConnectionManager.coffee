@@ -5,7 +5,10 @@ define ['R', 'EventEmitter'], (R, EE) ->
 
 	port = null
 
-	init : ->
+	
+	send : -> port.postMessage.apply(port, arguments)
+
+	init : -> $(document).ready ->
 		port = chrome.runtime.connect()
 		
 		# routing (replace sendMessage with connection)
@@ -13,7 +16,5 @@ define ['R', 'EventEmitter'], (R, EE) ->
 			console.log req
 			switch req.type
 				when R.key.resume_timer then EE.trigger(R.key.resume_timer, req)
-				when R.key.update_clock then EE.trigger(R.key.update_clock, req)
+				when R.key.update_timer then EE.trigger(R.key.update_timer, req)
 				when R.key.end_timer then EE.trigger(R.key.end_timer, req)
-
-	send : -> port.postMessage.apply(port, arguments)

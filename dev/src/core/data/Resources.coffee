@@ -22,8 +22,11 @@ define
 		start_timer : "start"
 		pause_timer : "pause"
 		stop_timer : "stop"
-		update_clock : "clock"
+		update_timer : "clock"
 		end_timer : "end"
 		resume_timer : "resume"
 		persistence_tag : "tag_io"
 		persistence_current_tag : "current_tag_io"
+
+		play_clock : "play"
+		stop_clock : "stop"

@@ -29,3 +29,6 @@ tostring millisec
 - stop // when loop end (to change btn_ico)
 
 # move connection manager in a specific component and manage event using eventListener
+
+# manca da immagazzinare i tag conclusi (quindi deve andare lato back)
+# non riesco a salvare la lista dei tag

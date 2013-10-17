@@ -27,10 +27,10 @@
       loadAll: function(fn) {
         return chrome.storage.sync.get(R.key.persistence_tag, function(obj) {
           var tagMap;
-          if (obj[R.key.persistence_current_tag] === void 0) {
-            return;
+          if (!obj[R.key.persistence_tag]) {
+            return [];
           }
-          tagMap = JSON.parse(obj[R.key.category]);
+          tagMap = JSON.parse(obj[R.key.persistence_tag]);
           return typeof fn === "function" ? fn(tagMap) : void 0;
         });
       },
@@ -56,7 +56,7 @@
       },
       loadCurrent: function(fn) {
         return chrome.storage.sync.get(R.key.persistence_current_tag, function(obj) {
-          if (obj[R.key.persistence_current_tag] != null) {
+          if (obj[R.key.persistence_current_tag] == null) {
             return;
           }
           return fn(obj[R.key.persistence_current_tag]);

@@ -1,87 +1,77 @@
 
 # TIMER LISTENERS
 
-# @see http://www.w3schools.com/js/js_timing.asp
+define ['R', '_', 'TagIO'] , (R, _, TagIO) ->
 
-define ['R', '_'] , (R, _) ->
+	T = null # timer ctrl
+	counter = 0 # n tick executed
+	n = 10
+	_target = null
 
-	class Timer # public methods
+	changeIcon = (n) -> # private utility
+		console.log n
+		chrome.browserAction.setIcon
+	        path: if n? then R.path.icon + n + ".jpg" else R.path.default_icon
 
-		T = null # timer ctrl
-		counter = 0 # n tick executed
-		n = 10
-		_target = null
+	# public methods
 
-		changeIcon = (n) -> # private utility
-			console.log n
-			chrome.browserAction.setIcon
-		        path: if n? then R.path.icon + n + ".jpg" else R.path.default_icon
+	init : -> # initialization
 
-		# public methods
+		self = @
 
-		init : -> # initialization
+		chrome.runtime.onConnect.addListener (port) ->
+			_target = port
 
-			self = @
+			port.onMessage.addListener (req) ->
+				self[req.type]?(req)
 
-			chrome.runtime.onConnect.addListener (port) ->
-				_target = port
+			if T? # if task running
+				port.postMessage 
+					type : R.key.resume_timer
+					secs : counter
 
-				port.onMessage.addListener (req) ->
-					self[req.type]?(req)
+			port.onDisconnect.addListener ->
+				_target = null
+				  
+	start : (req) ->
+		return off if T? #EXIT
 
-				if T? # if task running
-					console.log #test
-						type : R.key.resume_timer
-						secs : counter
-					port.postMessage 
-						type : R.key.resume_timer
-						secs : counter
+		secs = req.time / 1000
+		tick = secs / n
 
-				port.onDisconnect.addListener ->
-					_target = null
-					  
-		start : (req) ->
-			return off if T? #EXIT
+		# init timer ctrl
+		T = setInterval ->
+			task()
+		, 1000
 
-			secs = req.time / 1000
-			tick = secs / n
+		task = () =>
+			if counter >= secs
+				@stop(req)
+				_target.postMessage { type : R.key.end_timer } if _target
+				return # exit
 
-			# init timer ctrl
-			T = setInterval ->
-				task()
-			, 1000
+			changeIcon( counter ) if counter >= tick
+			counter++
+			if _target? 
+				_target.postMessage
+					type : R.key.update_timer
+					secs : counter
 
-			task = () =>
-				if counter >= secs
-					@stop()
-					_target.postMessage { type : R.key.end_timer } if _target
-					return # exit
-
-				changeIcon( counter ) if counter >= tick
-				counter++
-				if _target? 
-					_target.postMessage
-						type : R.key.update_clock
-						secs : counter
-
-			return on; # NA
+		return on; # NA
 
 
-		pause : (req) ->
-			if  T?
-				window.clearInterval T
-				T = null
+	pause : (req) ->
+		if  T?
+			window.clearInterval T
+			T = null
 
 
-		stop : (req) ->
-			if  T?
-				window.clearInterval T
-				T = null
+	stop : (req) ->
+		if  T?
+			window.clearInterval T
+			T = null
+			TagIO.incr req.tag
 
-			counter = 0;
-			changeIcon() # set default icon
-			return on
-
-
-	new Timer()
-
+		counter = 0;
+		changeIcon() # set default icon
+		return on

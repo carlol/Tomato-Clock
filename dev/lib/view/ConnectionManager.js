@@ -4,22 +4,24 @@
     var port;
     port = null;
     return {
-      init: function() {
-        port = chrome.runtime.connect();
-        return port.onMessage.addListener(function(req) {
-          console.log(req);
-          switch (req.type) {
-            case R.key.resume_timer:
-              return EE.trigger(R.key.resume_timer, req);
-            case R.key.update_clock:
-              return EE.trigger(R.key.update_clock, req);
-            case R.key.end_timer:
-              return EE.trigger(R.key.end_timer, req);
-          }
-        });
-      },
       send: function() {
         return port.postMessage.apply(port, arguments);
+      },
+      init: function() {
+        return $(document).ready(function() {
+          port = chrome.runtime.connect();
+          return port.onMessage.addListener(function(req) {
+            console.log(req);
+            switch (req.type) {
+              case R.key.resume_timer:
+                return EE.trigger(R.key.resume_timer, req);
+              case R.key.update_timer:
+                return EE.trigger(R.key.update_timer, req);
+              case R.key.end_timer:
+                return EE.trigger(R.key.end_timer, req);
+            }
+          });
+        });
       }
     };
   });

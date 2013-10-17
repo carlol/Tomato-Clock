@@ -1,4 +1,6 @@
 
 # INITIALIZATION SCRIPT
 
-require ['config'], -> require ['Player'], -> require ['ConnectionManager'], (CM) -> CM.init()
+require ['config'], -> 
+	require ['Player', 'Tag', 'ConnectionManager'] # ordered components list
+		, (components...) -> c.init() for c in components

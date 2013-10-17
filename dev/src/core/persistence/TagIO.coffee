@@ -15,8 +15,8 @@ define ['R'] , (R) ->
 
 	loadAll : (fn) ->
 		chrome.storage.sync.get R.key.persistence_tag, (obj) ->
-			return if obj[R.key.persistence_current_tag] is undefined # EXIT
-			tagMap = JSON.parse obj[R.key.category]
+			return [] if ! obj[R.key.persistence_tag] # EXIT
+			tagMap = JSON.parse obj[R.key.persistence_tag]
 			fn?tagMap
 
 	incr : (name, fn) ->
@@ -33,5 +33,5 @@ define ['R'] , (R) ->
 
 	loadCurrent : (fn) ->
 		chrome.storage.sync.get R.key.persistence_current_tag, (obj) ->
-			return if obj[R.key.persistence_current_tag]? # EXIT
+			return if ! obj[R.key.persistence_current_tag]? # EXIT
 			fn obj[R.key.persistence_current_tag]
