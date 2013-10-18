@@ -28,9 +28,10 @@
         return chrome.storage.sync.get(R.key.persistence_tag, function(obj) {
           var tagMap;
           if (!obj[R.key.persistence_tag]) {
-            return [];
+            tagMap = {};
+          } else {
+            tagMap = JSON.parse(obj[R.key.persistence_tag]);
           }
-          tagMap = JSON.parse(obj[R.key.persistence_tag]);
           return typeof fn === "function" ? fn(tagMap) : void 0;
         });
       },

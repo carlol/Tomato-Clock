@@ -6,5 +6,11 @@ body {
 	text-align: center;
 }
 
-.cmd {
+caption {
+	cursor: pointer;
+}
+
+caption:hover {
+	color: #DD4B39;
+	font-weight: bold;
 }

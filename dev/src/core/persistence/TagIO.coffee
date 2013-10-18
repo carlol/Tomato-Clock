@@ -15,8 +15,10 @@ define ['R'] , (R) ->
 
 	loadAll : (fn) ->
 		chrome.storage.sync.get R.key.persistence_tag, (obj) ->
-			return [] if ! obj[R.key.persistence_tag] # EXIT
-			tagMap = JSON.parse obj[R.key.persistence_tag]
+			if ! obj[R.key.persistence_tag]
+				tagMap = {}
+			else 
+				tagMap = JSON.parse obj[R.key.persistence_tag]
 			fn?tagMap
 
 	incr : (name, fn) ->
