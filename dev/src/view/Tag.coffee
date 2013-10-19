@@ -6,11 +6,16 @@ define ['R', 'TagIO', 'EventEmitter'] , (R, TagIO, EE) ->
 	_target = null
 	$tag = $tagList = $tagListHeader = null
 
-
+#<i class="uk-icon-remove-sign"></i>
 	createTableRow = (tag, tomatoes) ->
-		$tagList.append $("<tr><td>"+tag+"</td><td>"+tomatoes+"</td></tr>")
-							.click -> $tag.val tag; $tagListHeader.click() #close
-
+		$tagRow = $("<tr><td>"+tag+"</td><td>"+tomatoes+"</td></tr>")
+		$tagRow.find('td')
+				.addClass('clickable')
+				.click -> $tag.val tag; $tagListHeader.click() #close
+		$del = $('<i class="tag-del uk-icon-remove-sign"></i>')
+			.click -> $(@).parent().parent().remove(); TagIO.remove tag
+		$tagRow.append $('<td class="tag-del-container">').append $del
+		$tagList.append $tagRow
 
 
 	disable : -> $tag.attr('disabled', '')

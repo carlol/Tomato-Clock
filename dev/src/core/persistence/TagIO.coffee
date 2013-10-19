@@ -23,9 +23,15 @@ define ['R'] , (R) ->
 
 	incr : (name, fn) ->
 		@loadAll (tagMap) =>
-			if tagMap[name]? then tagMap[name]++; # increment
+			if tagMap[name]? then tagMap[name]++ # increment
 			else tagMap[name] = 1 # init
 			@saveAll tagMap, fn
+
+	remove : (name, fn) ->
+		@loadAll (tagMap) =>
+			if tagMap[name]? 
+				delete tagMap[name] # delete
+				@saveAll tagMap, fn
 
 	saveCurrent : (name, fn) ->
 		q = {}

@@ -5,10 +5,18 @@
     _target = null;
     $tag = $tagList = $tagListHeader = null;
     createTableRow = function(tag, tomatoes) {
-      return $tagList.append($("<tr><td>" + tag + "</td><td>" + tomatoes + "</td></tr>").click(function() {
+      var $del, $tagRow;
+      $tagRow = $("<tr><td>" + tag + "</td><td>" + tomatoes + "</td></tr>");
+      $tagRow.find('td').addClass('clickable').click(function() {
         $tag.val(tag);
         return $tagListHeader.click();
-      }));
+      });
+      $del = $('<i class="tag-del uk-icon-remove-sign"></i>').click(function() {
+        $(this).parent().parent().remove();
+        return TagIO.remove(tag);
+      });
+      $tagRow.append($('<td class="tag-del-container">').append($del));
+      return $tagList.append($tagRow);
     };
     return {
       disable: function() {

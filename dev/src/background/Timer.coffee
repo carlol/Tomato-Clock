@@ -48,6 +48,8 @@ define ['R', '_', 'TagIO'] , (R, _, TagIO) ->
 			if counter >= secs
 				@stop(req)
 				_target.postMessage { type : R.key.end_timer } if _target
+				TagIO.incr req.tag if req.tag
+				#(new Audio(R.path.alarm_sound)).play() # sound!
 				return # exit
 
 			changeIcon( counter ) if counter >= tick
@@ -70,7 +72,6 @@ define ['R', '_', 'TagIO'] , (R, _, TagIO) ->
 		if  T?
 			window.clearInterval T
 			T = null
-			TagIO.incr req.tag
 
 		counter = 0;
 		changeIcon() # set default icon

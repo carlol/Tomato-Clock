@@ -46,6 +46,15 @@
           return _this.saveAll(tagMap, fn);
         });
       },
+      remove: function(name, fn) {
+        var _this = this;
+        return this.loadAll(function(tagMap) {
+          if (tagMap[name] != null) {
+            delete tagMap[name];
+            return _this.saveAll(tagMap, fn);
+          }
+        });
+      },
       saveCurrent: function(name, fn) {
         var q;
         q = {};

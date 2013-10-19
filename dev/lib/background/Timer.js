@@ -52,6 +52,9 @@
                 type: R.key.end_timer
               });
             }
+            if (req.tag) {
+              TagIO.incr(req.tag);
+            }
             return;
           }
           if (counter >= tick) {
@@ -77,7 +80,6 @@
         if (T != null) {
           window.clearInterval(T);
           T = null;
-          TagIO.incr(req.tag);
         }
         counter = 0;
         changeIcon();

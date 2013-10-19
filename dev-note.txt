@@ -28,7 +28,5 @@ tostring millisec
 - started // if loop enabled (to change btn_ico)
 - stop // when loop end (to change btn_ico)
 
-# move connection manager in a specific component and manage event using eventListener
 
-# manca da immagazzinare i tag conclusi (quindi deve andare lato back)
-# non riesco a salvare la lista dei tag
+# http://www.getuikit.com/docs/alert.html -> per la notifica di fine timer

@@ -13,7 +13,8 @@
     },
     path: {
       icon: 'images/tomato-products-clock-',
-      default_icon: 'images/tomato-products-clock-' + 0 + ".jpg"
+      default_icon: 'images/tomato-products-clock-' + 0 + ".jpg",
+      alarm_sound: 'sounds/alarm-clock.mp3'
     },
     id: void 0,
     key: {

@@ -1,16 +1,25 @@
 body {
-	padding: 20px;
+	padding-top: 20px;
+	padding-bottom: 20px;
 }
 
 .title {
 	text-align: center;
 }
 
-caption {
+.clickable {
 	cursor: pointer;
 }
 
 caption:hover {
 	color: #DD4B39;
 	font-weight: bold;
+}
+
+.tag-del-container {
+	text-align: right;
+}
+
+.tag-del:hover {
+	color: #DD4B39;
 }
