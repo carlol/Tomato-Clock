@@ -7,8 +7,8 @@
       pause_timer_msg: "::: timer pause :::",
       stop_timer_msg: "::: timer stop :::",
       incr_tag_msg: "::: increment complited :::",
-      enable_sound: "<b>Enable</b> sound alarm",
-      disable_sound: "<b>Disable</b> sound alarm"
+      enable_sound: "<b class='red'>Enable</b> sound alarm",
+      disable_sound: "<b class='red'>Disable</b> sound alarm"
     },
     int: {
       default_time: 5000
