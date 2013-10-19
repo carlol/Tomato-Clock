@@ -2,8 +2,16 @@
 (function() {
   define([], function() {
     return {
-      isDef: function(o) {
-        return typeof o !== void 0;
+      getSize: function(obj) {
+        var count, key;
+        console.log(obj);
+        count = 0;
+        for (key in obj) {
+          if (obj.hasOwnProperty(key)) {
+            count++;
+          }
+        }
+        return count;
       }
     };
   });

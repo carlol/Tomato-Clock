@@ -1,7 +1,7 @@
 
 # TIMER LISTENERS
 
-define ['R', '_', 'TagIO'] , (R, _, TagIO) ->
+define ['R', '_', 'TagIO', 'AppStateIO'] , (R, _, TagIO, App) ->
 
 	T = null # timer ctrl
 	counter = 0 # n tick executed
@@ -49,7 +49,8 @@ define ['R', '_', 'TagIO'] , (R, _, TagIO) ->
 				@stop(req)
 				_target.postMessage { type : R.key.end_timer } if _target
 				TagIO.incr req.tag if req.tag
-				#(new Audio(R.path.alarm_sound)).play() # sound!
+				App.loadSoundCheck (isEnabled) -> 
+					(new Audio(R.path.alarm_sound)).play() if isEnabled
 				return # exit
 
 			changeIcon( counter ) if counter >= tick

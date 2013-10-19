@@ -1,7 +1,7 @@
 
 # TAG MANAGER
 
-define ['R', 'TagIO', 'EventEmitter'] , (R, TagIO, EE) ->
+define ['R', '_', 'TagIO', 'EventEmitter'] , (R, _, TagIO, EE) ->
 
 	_target = null
 	$tag = $tagList = $tagListHeader = null
@@ -12,8 +12,10 @@ define ['R', 'TagIO', 'EventEmitter'] , (R, TagIO, EE) ->
 		$tagRow.find('td')
 				.addClass('clickable')
 				.click -> $tag.val tag; $tagListHeader.click() #close
-		$del = $('<i class="tag-del uk-icon-remove-sign"></i>')
-			.click -> $(@).parent().parent().remove(); TagIO.remove tag
+		$del = $('<i class="tag-del uk-icon-remove-sign"></i>').click -> 
+			$(@).parent().parent().remove(); TagIO.remove tag
+			console.log $tagList.children().size()
+			$tagListHeader.addClass('hidden') if $tagList.children().size() == 0
 		$tagRow.append $('<td class="tag-del-container">').append $del
 		$tagList.append $tagRow
 
@@ -30,15 +32,19 @@ define ['R', 'TagIO', 'EventEmitter'] , (R, TagIO, EE) ->
 		if $tagList.children().length > 0
 			$tagList.children().remove()
 		else
+			$tagList.addClass('uk-animation-slide-left')
+				  	.addClass('hidden')
 			TagIO.loadAll (tagMap) ->
 				for tag, tomatoes of tagMap
 					createTableRow tag, tomatoes
+				$tagList.removeClass('hidden')
 
 	init : ->
 		that = @
 		$(document).ready ->
 			$tag = $('.current-tag')
-			$tagListHeader = $('.tags').find('caption')
+			$tagListHeader = $('.tags-btn')
+			TagIO.loadAll (tagMap) -> if _.getSize(tagMap) > 0 then $tagListHeader.removeClass 'hidden'
 			$tagList = $('.tags').find('tbody')
 			# add eventListener
 			$tagListHeader.click -> that.switchList()

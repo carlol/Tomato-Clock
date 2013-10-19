@@ -2,19 +2,6 @@
 (function() {
   define(['R'], function(R) {
     return {
-      Tag: (function() {
-        function _Class(name, tomatoes) {
-          this.name = name;
-          this.tomatoes = tomatoes;
-        }
-
-        _Class.prototype.toString = function() {
-          return JSON.stringify(this);
-        };
-
-        return _Class;
-
-      })(),
       saveAll: function(tagMap, fn) {
         var q;
         q = {};

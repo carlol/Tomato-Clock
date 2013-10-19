@@ -3,7 +3,7 @@
   var __slice = [].slice;
 
   require(['config'], function() {
-    return require(['Player', 'Tag', 'ConnectionManager'], function() {
+    return require(['Player', 'Tag', 'SoundCheck', 'ConnectionManager'], function() {
       var c, components, _i, _len, _results;
       components = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
       _results = [];

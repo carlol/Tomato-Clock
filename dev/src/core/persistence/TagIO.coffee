@@ -3,10 +3,6 @@
 
 define ['R'] , (R) ->
 
-	Tag : class
-		constructor : (@name, @tomatoes) ->
-		toString : -> JSON.stringify(@)
-
 	saveAll : (tagMap, fn) ->
 		q = {}
 		q[R.key.persistence_tag] = JSON.stringify tagMap
