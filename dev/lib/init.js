@@ -9,7 +9,7 @@
       _results = [];
       for (_i = 0, _len = components.length; _i < _len; _i++) {
         c = components[_i];
-        _results.push(c.init());
+        _results.push(typeof c.init === "function" ? c.init() : void 0);
       }
       return _results;
     });

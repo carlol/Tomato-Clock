@@ -1,7 +1,7 @@
 
 # TIMER LISTENERS
 
-define ['R', '_', 'TagIO', 'AppStateIO'] , (R, _, TagIO, App) ->
+define ['R', '_', 'TagIO', 'AppStateIO', 'NotificationManager'] , (R, _, TagIO, App, NM) ->
 
 	T = null # timer ctrl
 	counter = 0 # n tick executed
@@ -34,7 +34,7 @@ define ['R', '_', 'TagIO', 'AppStateIO'] , (R, _, TagIO, App) ->
 				_target = null
 				  
 	start : (req) ->
-		return off if T? #EXIT
+		return off if T? # EXIT
 
 		secs = req.time / 1000
 		tick = secs / n
@@ -45,12 +45,13 @@ define ['R', '_', 'TagIO', 'AppStateIO'] , (R, _, TagIO, App) ->
 		, 1000
 
 		task = () =>
-			if counter >= secs
+			if counter >= secs # time elapsed
 				@stop(req)
 				_target.postMessage { type : R.key.end_timer } if _target
 				TagIO.incr req.tag if req.tag
 				App.loadSoundCheck (isEnabled) -> 
 					(new Audio(R.path.alarm_sound)).play() if isEnabled
+				NM.showNotification()
 				return # exit
 
 			changeIcon( counter ) if counter >= tick
