@@ -44,6 +44,8 @@ define ['R', 'EventEmitter', 'ConnectionManager', 'Clock', 'Tag'] , (R, EE, CM, 
 			$playBtn = $('.play').click( fnPlayPause )
 			$stopBtn = $('.stop').click( fnStop )
 
-			EE.on R.key.resume_timer, (req) -> Clock.update req.secs; _play()
+			EE.on R.key.resume_timer, (req) -> 
+				if req.paused then _pause() else _play()
+				Clock.update req.secs
 			EE.on R.key.update_timer, (req) -> Clock.update req.secs
 			EE.on R.key.end_timer, (req) -> _stop()

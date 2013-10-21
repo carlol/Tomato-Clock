@@ -2,6 +2,7 @@ require.config
 
 	paths: 
 		R : 'core/data/Resources'
+		Quotes : 'core/data/Quotes'
 		_ : 'core/common/Utils'
 		EventEmitter : 'core/common/EventEmitter'
 		ConnectionManager : 'view/ConnectionManager'

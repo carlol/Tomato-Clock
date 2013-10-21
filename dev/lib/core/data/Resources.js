@@ -15,7 +15,7 @@
     },
     path: {
       icon: 'images/tomato-products-clock-',
-      default_icon: 'images/logo.png',
+      default_icon: 'images/logo19.png',
       alarm_sound: 'sounds/alarm-clock.mp3'
     },
     id: void 0,

@@ -44,8 +44,12 @@
           $playBtn = $('.play').click(fnPlayPause);
           $stopBtn = $('.stop').click(fnStop);
           EE.on(R.key.resume_timer, function(req) {
-            Clock.update(req.secs);
-            return _play();
+            if (req.paused) {
+              _pause();
+            } else {
+              _play();
+            }
+            return Clock.update(req.secs);
           });
           EE.on(R.key.update_timer, function(req) {
             return Clock.update(req.secs);
