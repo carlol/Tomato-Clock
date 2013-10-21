@@ -32,3 +32,5 @@ tostring millisec
 # http://www.getuikit.com/docs/alert.html -> per la notifica di fine timer
 
 # se l'app viene messa in pausa, chiudendo e riaprendo il popup non aggiorna l'ora mostrata (anche se lo stato è corretto): bisogna gestire l'invio dell'ora corrente all'instaurarsi della connessione.
+
+# inserire overlay nella notification per chiuderla (che la copra tutta)
