@@ -34,3 +34,24 @@ tostring millisec
 # se l'app viene messa in pausa, chiudendo e riaprendo il popup non aggiorna l'ora mostrata (anche se lo stato è corretto): bisogna gestire l'invio dell'ora corrente all'instaurarsi della connessione.
 
 # inserire overlay nella notification per chiuderla (che la copra tutta)
+
+# fare la o di o'clock in ROSSO
+
+# script:
+
+var a = []
+
+var $cit = $(document).find('[title="view quote"]')
+var $aut = $(document).find('[title="view author"]')
+$cit.each(function(i) { 
+	a.push(
+		{
+			quote : $(this).text()
+			, author : $($aut.get(i)).text()
+		}
+	)
+});
+
+JSON.stringify(a)
+
+# aggiornare notifiche: http://developer.chrome.com/extensions/notifications.html

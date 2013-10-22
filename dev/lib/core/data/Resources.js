@@ -11,7 +11,7 @@
       disable_sound: "<b class='red'>Disable</b> sound alarm"
     },
     int: {
-      default_time: 5000
+      default_time: 1
     },
     path: {
       icon: 'images/tomato-products-clock-',
