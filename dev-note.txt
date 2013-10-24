@@ -54,4 +54,4 @@ $cit.each(function(i) {
 
 JSON.stringify(a)
 
-# aggiornare notifiche: http://developer.chrome.com/extensions/notifications.html
+# aggiornare notifiche (switch per linux o altro os): http://developer.chrome.com/extensions/notifications.html
