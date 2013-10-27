@@ -762,7 +762,13 @@
     ];
     return {
       random: function() {
-        return quotes[getRandomInt(0, quotes.length)];
+        var res;
+        console.log(quotes[getRandomInt(0, quotes.length)]);
+        res = quotes[getRandomInt(0, quotes.length)];
+        if (res.quote.length < 120) {
+          return res;
+        }
+        return this.random();
       }
     };
   })();

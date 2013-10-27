@@ -15,6 +15,8 @@ build = (callback) ->
 task 'build', 'Build lib/ from src/', ->
 	build()
 
+	
+# use this cmd on command line on win: coffee -w -c -o lib src
 task 'watch', 'Watch src/ for changes', ->
 	coffee = spawn 'coffee', ['-w', '-c', '-o', 'lib', 'src']
 	coffee.stderr.on 'data', (data) ->

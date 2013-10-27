@@ -11,19 +11,13 @@
           opt = {
             type: "basic",
             title: "Take a Break!",
-            message: data.quote,
-            iconUrl: "images/icon-clock-200x200.png",
-            items: [
-              {
-                title: data.author,
-                message: data.quote
-              }
-            ]
+            message: "\"" + data.quote + "\"" + "\n" + data.author,
+            iconUrl: "images/icon-clock-200x200.png"
           };
           cb = function() {
             return console.log('notification showed');
           };
-          return chrome.notifications.create('notifications-id', opt, cb);
+          return chrome.notifications.create('notifications-' + (new Date()).getTime(), opt, cb);
         } else {
           notification = webkitNotifications.createHTMLNotification('notification.html');
           return notification.show();
