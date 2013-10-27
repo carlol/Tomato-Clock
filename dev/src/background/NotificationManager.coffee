@@ -9,11 +9,14 @@ define ['Quotes'], (Quotes) ->
 
 		if isAvaibleNewAPI
 
+			data = Quotes.random()
+
 			opt =
 				type: "basic"
 				title: "Take a Break!"
-				message: Quotes.random()
+				message: data.quote # try
 				iconUrl: "images/icon-clock-200x200.png"
+				items: [{ title: data.author, message: data.quote}] # try
 
 			cb = -> console.log 'notification showed'
 			

@@ -55,3 +55,8 @@ $cit.each(function(i) {
 JSON.stringify(a)
 
 # aggiornare notifiche (switch per linux o altro os): http://developer.chrome.com/extensions/notifications.html
+
+# rendere dinamico il logo, veramente! http://smus.com/dynamic-icons-chrome-extensions/
+# tutorial: http://www.html5canvastutorials.com/tutorials/html5-canvas-circles/
+# gia fatto: http://jsfiddle.net/Hnw6a/ #non e vero, non gira!
+# questo ci si avvicina di piu http://html5.litten.com/graphing-data-in-the-html5-canvas-element-part-iv-simple-pie-charts/

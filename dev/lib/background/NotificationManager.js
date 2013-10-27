@@ -5,13 +5,20 @@
     isAvaibleNewAPI = webkitNotifications.createHTMLNotification == null;
     return {
       showNotification: function() {
-        var cb, notification, opt;
+        var cb, data, notification, opt;
         if (isAvaibleNewAPI) {
+          data = Quotes.random();
           opt = {
             type: "basic",
             title: "Take a Break!",
-            message: Quotes.random(),
-            iconUrl: "images/icon-clock-200x200.png"
+            message: data.quote,
+            iconUrl: "images/icon-clock-200x200.png",
+            items: [
+              {
+                title: data.author,
+                message: data.quote
+              }
+            ]
           };
           cb = function() {
             return console.log('notification showed');
