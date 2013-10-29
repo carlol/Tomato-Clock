@@ -16,7 +16,6 @@ define ['Quotes'], (Quotes) ->
 				title: "Take a Break!"
 				message: "\"" + data.quote + "\"" + "\n" + data.author
 				iconUrl: "images/icon-clock-200x200.png"
-				# items: [{ title: data.author, message: data.quote}] # try
 
 			cb = -> console.log 'notification showed'
 			

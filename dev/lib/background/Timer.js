@@ -22,11 +22,13 @@
             var _name;
             return typeof self[_name = req.type] === "function" ? self[_name](req) : void 0;
           });
-          port.postMessage({
-            type: R.key.resume_timer,
-            paused: T == null,
-            secs: s
-          });
+          if (s !== 0) {
+            port.postMessage({
+              type: R.key.resume_timer,
+              paused: T == null,
+              secs: s
+            });
+          }
           return port.onDisconnect.addListener(function() {
             return _target = null;
           });

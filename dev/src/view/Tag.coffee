@@ -6,7 +6,6 @@ define ['R', '_', 'TagIO', 'EventEmitter'] , (R, _, TagIO, EE) ->
 	_target = null
 	$tag = $tagList = $tagListHeader = null
 
-#<i class="uk-icon-remove-sign"></i>
 	createTableRow = (tag, tomatoes) ->
 		$tagRow = $("<tr><td>"+tag+"</td><td>"+tomatoes+"</td></tr>")
 		$tagRow.find('td')
@@ -51,7 +50,7 @@ define ['R', '_', 'TagIO', 'EventEmitter'] , (R, _, TagIO, EE) ->
 			EE.on R.key.play_clock , -> that.disable(); TagIO.saveCurrent $tag.val()
 			EE.on R.key.stop_clock , -> that.enable(); $tag.val ''
 			EE.on R.key.end_timer , -> that.enable(); $tag.val ''
-			EE.on R.key.resume_timer , -> 
+			EE.on R.key.resume_timer , (req) ->
 				that.disable()
 				TagIO.loadCurrent (tag) -> $tag.val tag
 

@@ -77,7 +77,7 @@
             that.enable();
             return $tag.val('');
           });
-          return EE.on(R.key.resume_timer, function() {
+          return EE.on(R.key.resume_timer, function(req) {
             that.disable();
             return TagIO.loadCurrent(function(tag) {
               return $tag.val(tag);

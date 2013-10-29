@@ -25,11 +25,11 @@ define ['R', '_', 'TagIO', 'AppStateIO', 'NotificationManager'] , (R, _, TagIO, 
 			port.onMessage.addListener (req) ->
 				self[req.type]?(req)
 
-			
-			port.postMessage 
-				type : R.key.resume_timer
-				paused : ! T?
-				secs : s # could be 0
+			if s != 0 # timer in execution or interrupted
+				port.postMessage 
+					type : R.key.resume_timer
+					paused : ! T?
+					secs : s
 
 			port.onDisconnect.addListener ->
 				_target = null

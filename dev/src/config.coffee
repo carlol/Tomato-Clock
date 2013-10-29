@@ -9,6 +9,7 @@ require.config
 		TagIO : 'core/persistence/TagIO'
 		AppStateIO : 'core/persistence/AppStateIO'
 		Timer : 'background/Timer'
+		IconDrawer : 'background/IconDrawer'
 		NotificationManager: 'background/NotificationManager'
 		Player : 'view/Player'
 		Clock : 'view/Clock'
