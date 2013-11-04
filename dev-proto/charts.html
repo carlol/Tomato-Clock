@@ -47,7 +47,7 @@ function plotData() {
     }
 }
 
-function drawIcon(n) {
+function drawDonutIcon(n) {
     var canvas;
     var ctx;
     var color = "#DD4B39";
@@ -59,17 +59,42 @@ function drawIcon(n) {
 
     ctx.fillStyle = color;
     ctx.beginPath();
-    ctx.moveTo(200, 150);
-    ctx.arc(200, 150, 150, 1.5*Math.PI, (Math.PI * (1.5 + 2 * (n / steps))), false);
-    ctx.lineTo(200, 150);
+// ctx.arc(100,100,100,0,Math.PI, false); // outer (filled)
+// ctx.arc(100,100,55,Math.PI,Math.PI*2, true); // outer (unfills it)
+    ctx.arc(200, 150, 150, 1.5*Math.PI, (Math.PI * (1.5 + 2 * ((n) / steps))), false);
+    ctx.arc(200, 150, 90, (Math.PI * (1.5 + 2 * ((n) / steps))), 1.5*Math.PI, true);
     ctx.fill();
 
-    // manca da fare il triangolo sopra
+    // prova
+    //http://jsfiddle.net/simonsarris/U5bXf/
 
+    // ctx.arc(200, 150, 130, 0 ,Math.PI*2, true); // inner (unfills it)
+    // ctx.lineTo(200, 150);
+
+    // manca da fare il triangolo sopra
+}
+
+function drawTopClove() {
+    var canvas;
+    var ctx;
+    var color = "#DD4B39";
+    var steps = 10;
+
+    canvas = document.getElementById("canvas");
+    ctx = canvas.getContext("2d");
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    ctx.fillStyle = color;
+    ctx.beginPath();
+    ctx.lineTo(200, 80);
+    ctx.arc(200, 150, 150, 1.4*Math.PI, Math.PI * 1.6, false);
+    ctx.fill();
 }
 
 
-drawIcon(6);
+// drawDonutIcon(3);
+drawTopClove()
+
 
 </script>
 </section>
