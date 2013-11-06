@@ -1,19 +1,14 @@
 
 # TIMER LISTENERS
 
-define ['R', '_', 'TagIO', 'AppStateIO', 'NotificationManager'] , (R, _, TagIO, App, NM) ->
+define ['R', '_', 'TagIO', 'AppStateIO', 'NotificationManager', 'IconDrawer']
+		, (R, _, TagIO, App, NM, IconDrawer) ->
 
 	T = null # timer ctrl
 	counter = s = 0 # n tick executed
-	n = 10
+	n = R.int.steps
 	_target = null
 
-	changeIcon = (n) -> # private utility
-		console.log n
-		chrome.browserAction.setIcon
-	        path: if n? then R.path.icon + n + ".png" else R.path.default_icon
-
-	# public methods
 
 	init : -> # initialization
 
@@ -56,7 +51,7 @@ define ['R', '_', 'TagIO', 'AppStateIO', 'NotificationManager'] , (R, _, TagIO, 
 				return # exit
 
 			if s >= tick*counter
-				changeIcon( counter )
+				IconDrawer.changeIcon( counter+1 )
 				counter++ # increment ticks counter
 			s++ # increment seconds counter
 			if _target? 
@@ -79,5 +74,5 @@ define ['R', '_', 'TagIO', 'AppStateIO', 'NotificationManager'] , (R, _, TagIO, 
 			T = null
 
 		counter = s = 0;
-		changeIcon() # set default icon
+		IconDrawer.setDefaultIcon()
 		return on

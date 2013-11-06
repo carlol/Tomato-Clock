@@ -19,7 +19,7 @@ define ['Quotes'], (Quotes) ->
 
 			cb = -> console.log 'notification showed'
 			
-			chrome.notifications.create 'notifications-'+(new Date()).getTime(), opt, cb
+			chrome.notifications.create 'notifications-' + (new Date()).getTime(), opt, cb
 			
 		else # old implementation
 			notification = webkitNotifications.createHTMLNotification 'notification.html'

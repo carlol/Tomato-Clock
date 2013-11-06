@@ -6,6 +6,7 @@
     return require(['NotificationManager', 'Timer'], function() {
       var c, components, _i, _len, _results;
       components = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+      console.log(c);
       _results = [];
       for (_i = 0, _len = components.length; _i < _len; _i++) {
         c = components[_i];

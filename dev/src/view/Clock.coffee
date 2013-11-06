@@ -1,10 +1,11 @@
 
 # CLOCK MANAGER
 
-define [] , ->
+define ['R'] , (R) ->
 
 	_separator_ = ':'
 	$clock = null
+	tot_sec = R.int.default_time/1000
 
 	$(document).ready -> $clock = $('.clock')
 
@@ -19,7 +20,7 @@ define [] , ->
 		(normalize(m) + _separator_) + # minutes
 		normalize s # seconds
 
-	update : (secs) -> $clock.text toString secs if !!$clock
+	update : (secs) -> $clock.text toString tot_sec - secs if !!$clock
 
-	reset : -> $clock.text toString 0 if !!$clock
+	reset : -> $clock.text toString tot_sec if !!$clock
 
