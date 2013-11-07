@@ -2,17 +2,31 @@
 (function() {
   var __slice = [].slice;
 
-  require(['config'], function() {
-    return require(['Player', 'Tag', 'SoundCheck', 'ConnectionManager'], function() {
-      var c, components, _i, _len, _results;
-      components = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
-      _results = [];
-      for (_i = 0, _len = components.length; _i < _len; _i++) {
-        c = components[_i];
-        _results.push(typeof c.init === "function" ? c.init() : void 0);
-      }
-      return _results;
-    });
+  require.config({
+    paths: {
+      R: 'core/data/Resources',
+      Quotes: 'core/data/Quotes',
+      _: 'core/common/Utils',
+      EventEmitter: 'core/common/EventEmitter',
+      ConnectionManager: 'view/ConnectionManager',
+      TagIO: 'core/persistence/TagIO',
+      AppStateIO: 'core/persistence/AppStateIO',
+      Player: 'view/Player',
+      Clock: 'view/Clock',
+      Tag: 'view/Tag',
+      SoundCheck: 'view/SoundCheck'
+    }
+  });
+
+  require(['Player', 'Tag', 'SoundCheck', 'ConnectionManager'], function() {
+    var c, components, _i, _len, _results;
+    components = 1 <= arguments.length ? __slice.call(arguments, 0) : [];
+    _results = [];
+    for (_i = 0, _len = components.length; _i < _len; _i++) {
+      c = components[_i];
+      _results.push(typeof c.init === "function" ? c.init() : void 0);
+    }
+    return _results;
   });
 
 }).call(this);

@@ -1,0 +1,52 @@
+body {
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+
+.hidden {
+	display: none;
+}
+
+.title {
+	text-align: center;
+}
+
+.title span {
+	color: #DD4B39;
+	font-weight: bold;
+}
+
+.clickable {
+	cursor: pointer;
+}
+
+.hint {
+	font-size: 12px;
+	font-style: italic;
+	text-align: left;
+}
+
+.tags-btn {
+	margin-bottom: 0;
+}
+
+.tags-btn:hover {
+	color: #DD4B39;
+	font-weight: bold;
+}
+
+.tag-del-container {
+	text-align: right;
+}
+
+.tag-del:hover {
+	color: #DD4B39;
+}
+
+.red {
+	color: #DD4B39;	
+}
+
+.sound-btn {
+	margin-bottom: 10px;
+}

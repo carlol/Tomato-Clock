@@ -12,8 +12,8 @@ define
 		disable_sound : "<b class='red'>Disable</b> sound alarm"
 
 	int :
-		default_time : 10*1000 #25*60*1000
-		steps : 10
+		default_time : 25*60*1000 #10*1000
+		steps : 25
 
 	path :
 		icon : 'images/tomato-products-clock-'

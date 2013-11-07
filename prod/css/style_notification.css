@@ -1,0 +1,20 @@
+.container {
+	text-align: center;
+	padding: 20px;
+}
+
+.title {
+	margin: 0;
+	font-weight: bold;
+}
+
+blockquote {
+	text-align: left;
+}
+
+.quote-container {
+	margin-bottom: 0;
+	margin-top: 10px;
+	line-height: 16px;
+	font-size: 12px;
+}
