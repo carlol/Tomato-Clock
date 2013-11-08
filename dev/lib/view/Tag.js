@@ -35,6 +35,12 @@
       getValue: function() {
         return $tag.val();
       },
+      hideListHeader: function() {
+        return $tagListHeader.addClass('hidden');
+      },
+      showListHeader: function() {
+        return $tagListHeader.removeClass('hidden');
+      },
       switchList: function() {
         if ($tagList.children().length > 0) {
           return $tagList.children().remove();
@@ -58,7 +64,7 @@
           $tagListHeader = $('.tags-btn');
           TagIO.loadAll(function(tagMap) {
             if (_.getSize(tagMap) > 0) {
-              return $tagListHeader.removeClass('hidden');
+              return that.showListHeader();
             }
           });
           $tagList = $('.tags').find('tbody');
@@ -67,18 +73,22 @@
           });
           EE.on(R.key.play_clock, function() {
             that.disable();
+            that.hideListHeader();
             return TagIO.saveCurrent($tag.val());
           });
           EE.on(R.key.stop_clock, function() {
             that.enable();
+            that.showListHeader();
             return $tag.val('');
           });
           EE.on(R.key.end_timer, function() {
             that.enable();
+            that.showListHeader();
             return $tag.val('');
           });
           return EE.on(R.key.resume_timer, function(req) {
             that.disable();
+            that.hideListHeader();
             return TagIO.loadCurrent(function(tag) {
               return $tag.val(tag);
             });

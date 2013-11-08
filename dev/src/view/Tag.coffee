@@ -27,6 +27,10 @@ define ['R', '_', 'TagIO', 'EventEmitter'] , (R, _, TagIO, EE) ->
 
 	getValue : -> $tag.val()
 
+	hideListHeader : -> $tagListHeader.addClass('hidden')
+
+	showListHeader : -> $tagListHeader.removeClass('hidden')
+
 	switchList : ->
 		if $tagList.children().length > 0
 			$tagList.children().remove()
@@ -43,15 +47,13 @@ define ['R', '_', 'TagIO', 'EventEmitter'] , (R, _, TagIO, EE) ->
 		$(document).ready ->
 			$tag = $('.current-tag')
 			$tagListHeader = $('.tags-btn')
-			TagIO.loadAll (tagMap) -> if _.getSize(tagMap) > 0 then $tagListHeader.removeClass 'hidden'
+			TagIO.loadAll (tagMap) -> if _.getSize(tagMap) > 0 then that.showListHeader()
 			$tagList = $('.tags').find('tbody')
 			# add eventListener
 			$tagListHeader.click -> that.switchList()
-			EE.on R.key.play_clock , -> that.disable(); TagIO.saveCurrent $tag.val()
-			EE.on R.key.stop_clock , -> that.enable(); $tag.val ''
-			EE.on R.key.end_timer , -> that.enable(); $tag.val ''
-			EE.on R.key.resume_timer , (req) ->
-				that.disable()
-				TagIO.loadCurrent (tag) -> $tag.val tag
+			EE.on R.key.play_clock , -> that.disable(); that.hideListHeader(); TagIO.saveCurrent $tag.val()
+			EE.on R.key.stop_clock , -> that.enable(); that.showListHeader(); $tag.val ''
+			EE.on R.key.end_timer , -> that.enable(); that.showListHeader(); $tag.val ''
+			EE.on R.key.resume_timer , (req) ->	that.disable(); that.hideListHeader(); TagIO.loadCurrent (tag) -> $tag.val tag
 
 
