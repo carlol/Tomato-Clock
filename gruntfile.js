@@ -37,7 +37,7 @@ module.exports = function(grunt) {
       },
         files: [
           // includes files in path and its subdirs
-          {expand: true, cwd: 'dev/', src: ['**', '!lib/init*', '!src/**'], dest: 'prod/'}
+          {expand: true, cwd: 'dev/', src: ['**', '!lib/init*', '!src/**', '!Cakefile'], dest: 'prod/'}
         ]
       }
     }

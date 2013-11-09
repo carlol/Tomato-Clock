@@ -2,8 +2,8 @@
   "manifest_version": 2,
 
   "name": "Tomato'Clock",
-  "description": "TODO: description",
-  "version": "1.0",
+  "description": "Use the Pomodoro technique® to track your working time in 25-minutes slot called pomodoro.",
+  "version": "1.0.1",
 
   "icons": {
     "16": "images/logo16.png",

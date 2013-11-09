@@ -27,9 +27,11 @@ define ['R', '_', 'TagIO', 'EventEmitter'] , (R, _, TagIO, EE) ->
 
 	getValue : -> $tag.val()
 
-	hideListHeader : -> $tagListHeader.addClass('hidden')
+	hideListHeader : -> 
+		$tagListHeader.addClass('hidden')
+		if $tagList.children().length > 0 then @switchList()
 
-	showListHeader : -> $tagListHeader.removeClass('hidden')
+	showListHeader : -> TagIO.loadAll (tagMap) -> if _.getSize(tagMap) > 0 then $tagListHeader.removeClass('hidden')
 
 	switchList : ->
 		if $tagList.children().length > 0
@@ -47,7 +49,7 @@ define ['R', '_', 'TagIO', 'EventEmitter'] , (R, _, TagIO, EE) ->
 		$(document).ready ->
 			$tag = $('.current-tag')
 			$tagListHeader = $('.tags-btn')
-			TagIO.loadAll (tagMap) -> if _.getSize(tagMap) > 0 then that.showListHeader()
+			that.showListHeader()
 			$tagList = $('.tags').find('tbody')
 			# add eventListener
 			$tagListHeader.click -> that.switchList()

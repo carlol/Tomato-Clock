@@ -36,10 +36,17 @@
         return $tag.val();
       },
       hideListHeader: function() {
-        return $tagListHeader.addClass('hidden');
+        $tagListHeader.addClass('hidden');
+        if ($tagList.children().length > 0) {
+          return this.switchList();
+        }
       },
       showListHeader: function() {
-        return $tagListHeader.removeClass('hidden');
+        return TagIO.loadAll(function(tagMap) {
+          if (_.getSize(tagMap) > 0) {
+            return $tagListHeader.removeClass('hidden');
+          }
+        });
       },
       switchList: function() {
         if ($tagList.children().length > 0) {
@@ -62,11 +69,7 @@
         return $(document).ready(function() {
           $tag = $('.current-tag');
           $tagListHeader = $('.tags-btn');
-          TagIO.loadAll(function(tagMap) {
-            if (_.getSize(tagMap) > 0) {
-              return that.showListHeader();
-            }
-          });
+          that.showListHeader();
           $tagList = $('.tags').find('tbody');
           $tagListHeader.click(function() {
             return that.switchList();
